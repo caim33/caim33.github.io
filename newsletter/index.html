@@ -29,30 +29,31 @@
       </div>
     </header>
 
-    <main id="main">
-      <section id="top" class="hero-section" aria-labelledby="site-title">
-        <div class="hero-copy">
-          <p class="eyebrow" id="latest-month"></p>
-          <h1 id="site-title">NEWSLETTER</h1>
-          <p class="hero-subtitle">Learning and Vision Atelier</p>
-
-          <div id="issues" class="issue-directory" aria-labelledby="issue-directory-title">
-            <div class="directory-heading">
-              <p class="eyebrow">Issues</p>
-              <h2 id="issue-directory-title">期数目录</h2>
-            </div>
-            <div class="issue-list" id="issue-nav" aria-label="按日期选择期刊"></div>
-          </div>
+    <div class="archive-shell">
+      <aside id="issues" class="issue-rail" aria-labelledby="issue-directory-title">
+        <div class="directory-heading">
+          <p class="eyebrow">Issues</p>
+          <h2 id="issue-directory-title">期数目录</h2>
         </div>
+        <div class="issue-list" id="issue-nav" aria-label="按日期选择期刊"></div>
+      </aside>
 
-        <aside class="archive-panel" aria-label="全站统计">
-          <div class="archive-panel-top">
-            <span>Archive</span>
-            <strong id="issue-total"></strong>
+      <main id="main" class="content-area">
+        <section id="top" class="hero-section" aria-labelledby="site-title">
+          <div class="hero-copy">
+            <p class="eyebrow" id="latest-month"></p>
+            <h1 id="site-title">NEWSLETTER</h1>
+            <p class="hero-subtitle">Learning and Vision Atelier</p>
           </div>
-          <div class="stat-grid" id="stats"></div>
-        </aside>
-      </section>
+
+          <aside class="archive-panel" aria-label="全站统计">
+            <div class="archive-panel-top">
+              <span>Archive</span>
+              <strong id="issue-total"></strong>
+            </div>
+            <div class="stat-grid" id="stats"></div>
+          </aside>
+        </section>
 
       <section class="section current-issue-heading" aria-labelledby="current-issue-title">
         <p class="eyebrow">Current Issue</p>
@@ -112,9 +113,9 @@
           <div id="resource-card"></div>
         </div>
       </section>
-    </main>
-
-    <footer class="site-footer" id="contact"></footer>
+        <footer class="site-footer" id="contact"></footer>
+      </main>
+    </div>
 
     <script src="assets/content.js"></script>
     <script src="assets/app.js"></script>

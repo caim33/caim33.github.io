@@ -129,12 +129,38 @@ a {
   outline: none;
 }
 
+.archive-shell {
+  width: min(1440px, 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  margin: 0 auto;
+}
+
+.content-area {
+  min-width: 0;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.issue-rail {
+  position: sticky;
+  top: 70px;
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  height: calc(100vh - 70px);
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+}
+
 .hero-section {
   min-height: calc(100vh - 70px);
-  display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(360px, 0.72fr);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   gap: 2.2rem;
-  align-items: center;
   padding: 5rem 0 4.5rem;
 }
 
@@ -159,13 +185,11 @@ p {
 }
 
 h1 {
-  width: max-content;
-  max-width: none;
+  max-width: 100%;
   margin: 0 0 0.8rem;
-  font-size: clamp(5rem, 11vw, 10.4rem);
+  font-size: clamp(4.6rem, 7.6vw, 8rem);
   line-height: 0.9;
   letter-spacing: 0;
-  white-space: nowrap;
 }
 
 h2 {
@@ -189,27 +213,23 @@ h3 {
   text-transform: uppercase;
 }
 
-.issue-directory {
-  max-width: 760px;
-}
-
 .directory-heading {
   margin-bottom: 0.9rem;
 }
 
 .directory-heading h2 {
   margin-bottom: 0;
-  font-size: 1.35rem;
+  font-size: 1.28rem;
 }
 
 .issue-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 0.75rem;
 }
 
 .issue-button {
-  min-height: 76px;
+  width: 100%;
+  min-height: 78px;
   padding: 0.85rem 1rem;
   color: var(--ink);
   text-align: left;
@@ -261,6 +281,7 @@ h3 {
 
 .archive-panel {
   padding: 1.6rem;
+  width: min(680px, 100%);
 }
 
 .archive-panel-top {
@@ -629,16 +650,43 @@ h3 {
   color: #d5f5ef;
 }
 
+@media (max-width: 1180px) {
+  .archive-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .content-area,
+  .issue-rail {
+    grid-column: 1;
+  }
+
+  .issue-rail {
+    position: sticky;
+    top: 70px;
+    z-index: 9;
+    height: auto;
+    border-left: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .issue-list {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+  }
+
+  .issue-button {
+    flex: 0 0 180px;
+  }
+}
+
 @media (max-width: 1080px) {
   .hero-section {
-    grid-template-columns: 1fr;
     min-height: auto;
   }
 
   h1 {
-    width: auto;
-    font-size: clamp(4rem, 16vw, 8rem);
-    white-space: normal;
+    font-size: clamp(4rem, 14vw, 7rem);
   }
 }
 
