@@ -10,8 +10,8 @@
   <body>
     <a class="skip-link" href="#main">跳到正文</a>
 
-    <div class="site-shell">
-      <aside class="issue-sidebar" aria-label="期刊目录">
+    <header class="site-header">
+      <div class="header-inner">
         <a class="brand" href="#top" aria-label="SAIL Newsletter 首页">
           <span class="brand-mark">S</span>
           <span>
@@ -19,95 +19,102 @@
             <small>Learning and Vision Atelier</small>
           </span>
         </a>
+        <nav class="top-nav" aria-label="页面导航">
+          <a href="#issues">Issues</a>
+          <a href="#spotlight">Spotlight</a>
+          <a href="#interview">Interview</a>
+          <a href="#events">Events</a>
+          <a href="#resources">Resources</a>
+        </nav>
+      </div>
+    </header>
 
-        <div class="sidebar-block">
-          <p class="sidebar-label">Issues</p>
-          <nav class="issue-nav" id="issue-nav" aria-label="按日期选择期刊"></nav>
+    <main id="main">
+      <section id="top" class="hero-section" aria-labelledby="site-title">
+        <div class="hero-copy">
+          <p class="eyebrow" id="latest-month"></p>
+          <h1 id="site-title">NEWSLETTER</h1>
+          <p class="hero-subtitle">Learning and Vision Atelier</p>
+
+          <div id="issues" class="issue-directory" aria-labelledby="issue-directory-title">
+            <div class="directory-heading">
+              <p class="eyebrow">Issues</p>
+              <h2 id="issue-directory-title">期数目录</h2>
+            </div>
+            <div class="issue-list" id="issue-nav" aria-label="按日期选择期刊"></div>
+          </div>
         </div>
 
-        <div class="sidebar-block section-nav-wrap">
-          <p class="sidebar-label">Sections</p>
-          <nav class="section-nav" aria-label="本期板块">
-            <a href="#spotlight">Spotlight</a>
-            <a href="#interview">Interview</a>
-            <a href="#events">Events</a>
-            <a href="#resources">Resources</a>
-          </nav>
+        <aside class="archive-panel" aria-label="全站统计">
+          <div class="archive-panel-top">
+            <span>Archive</span>
+            <strong id="issue-total"></strong>
+          </div>
+          <div class="stat-grid" id="stats"></div>
+        </aside>
+      </section>
+
+      <section class="section current-issue-heading" aria-labelledby="current-issue-title">
+        <p class="eyebrow">Current Issue</p>
+        <h2 id="current-issue-title"></h2>
+        <p id="current-issue-subtitle" class="section-intro"></p>
+      </section>
+
+      <section class="section highlights" aria-labelledby="highlights-title">
+        <div class="section-heading">
+          <p class="eyebrow">At a glance</p>
+          <h2 id="highlights-title">本期速览</h2>
         </div>
-      </aside>
+        <div class="highlight-grid" id="highlights"></div>
+      </section>
 
-      <main id="main" class="content-area">
-        <section id="top" class="hero-section" aria-labelledby="issue-title">
-          <div class="hero-copy">
-            <p class="eyebrow" id="issue-month"></p>
-            <h1 id="issue-title"></h1>
-            <p class="hero-subtitle" id="issue-subtitle"></p>
-          </div>
-          <aside class="issue-panel" aria-label="本期概览">
-            <div class="issue-panel-top">
-              <span>Issue</span>
-              <strong id="issue-code"></strong>
-            </div>
-            <div class="stat-grid" id="stats"></div>
-          </aside>
-        </section>
+      <section id="spotlight" class="section" aria-labelledby="spotlight-title">
+        <div class="section-heading">
+          <p class="eyebrow">Spotlight</p>
+          <h2 id="spotlight-title">论文发表与团队动态</h2>
+        </div>
+        <div class="subsection-title">
+          <h3>论文发表</h3>
+          <span id="paper-count"></span>
+        </div>
+        <div class="paper-list" id="papers"></div>
 
-        <section class="section highlights" aria-labelledby="highlights-title">
+        <div class="subsection-title team-heading">
+          <h3>团队动态</h3>
+          <span id="team-count"></span>
+        </div>
+        <div class="timeline" id="team-updates"></div>
+      </section>
+
+      <section id="interview" class="section interview-section" aria-labelledby="interview-title">
+        <div class="section-heading">
+          <p class="eyebrow">Interview</p>
+          <h2 id="interview-title">参会感受</h2>
+          <p id="interview-intro" class="section-intro"></p>
+        </div>
+        <div class="person-filter" id="person-filter" aria-label="筛选受访者"></div>
+        <div class="qa-list" id="interview-list"></div>
+      </section>
+
+      <section id="events" class="section split-section" aria-labelledby="events-title">
+        <div>
           <div class="section-heading">
-            <p class="eyebrow">At a glance</p>
-            <h2 id="highlights-title">本期速览</h2>
+            <p class="eyebrow">Events</p>
+            <h2 id="events-title">会议截稿</h2>
           </div>
-          <div class="highlight-grid" id="highlights"></div>
-        </section>
-
-        <section id="spotlight" class="section" aria-labelledby="spotlight-title">
+          <div class="deadline-list" id="deadlines"></div>
+        </div>
+        <div id="resources" class="resource-column" aria-labelledby="resources-title">
           <div class="section-heading">
-            <p class="eyebrow">Spotlight</p>
-            <h2 id="spotlight-title">论文发表与团队动态</h2>
+            <p class="eyebrow">Resources</p>
+            <h2 id="resources-title">资源推荐</h2>
           </div>
-          <div class="subsection-title">
-            <h3>论文发表</h3>
-            <span id="paper-count"></span>
-          </div>
-          <div class="paper-list" id="papers"></div>
+          <div id="resource-card"></div>
+        </div>
+      </section>
+    </main>
 
-          <div class="subsection-title team-heading">
-            <h3>团队动态</h3>
-            <span id="team-count"></span>
-          </div>
-          <div class="timeline" id="team-updates"></div>
-        </section>
-
-        <section id="interview" class="section interview-section" aria-labelledby="interview-title">
-          <div class="section-heading">
-            <p class="eyebrow">Interview</p>
-            <h2 id="interview-title">参会感受</h2>
-            <p id="interview-intro" class="section-intro"></p>
-          </div>
-          <div class="person-filter" id="person-filter" aria-label="筛选受访者"></div>
-          <div class="qa-list" id="interview-list"></div>
-        </section>
-
-        <section id="events" class="section split-section" aria-labelledby="events-title">
-          <div>
-            <div class="section-heading">
-              <p class="eyebrow">Events</p>
-              <h2 id="events-title">会议截稿</h2>
-            </div>
-            <div class="deadline-list" id="deadlines"></div>
-          </div>
-          <div id="resources" class="resource-column" aria-labelledby="resources-title">
-            <div class="section-heading">
-              <p class="eyebrow">Resources</p>
-              <h2 id="resources-title">资源推荐</h2>
-            </div>
-            <div id="resource-card"></div>
-          </div>
-        </section>
-
-        <footer class="site-footer" id="contact"></footer>
-      </main>
-    </div>
+    <footer class="site-footer" id="contact"></footer>
 
     <script src="assets/content.js"></script>
     <script src="assets/app.js"></script>

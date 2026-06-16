@@ -22,6 +22,20 @@
     });
   }
 
+  function getArchiveStats() {
+    return issueKeys.reduce(
+      (totals, key) => {
+        const item = data.issues[key];
+        totals.papers += item.spotlight.papers.length;
+        totals.team += item.spotlight.teamUpdates.length;
+        totals.deadlines += item.events.deadlines.length;
+        totals.resources += item.resources ? 1 : 0;
+        return totals;
+      },
+      { papers: 0, team: 0, deadlines: 0, resources: 0 }
+    );
+  }
+
   function renderIssueNav() {
     const root = $("#issue-nav");
     root.innerHTML = "";
@@ -47,25 +61,36 @@
     url.searchParams.set("issue", key);
     url.hash = "";
     window.history.replaceState({}, "", url);
-    renderAll();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    renderIssue();
+    window.scrollTo({ top: document.querySelector(".current-issue-heading").offsetTop - 80, behavior: "smooth" });
   }
 
-  function renderBasics() {
-    document.title = `${issue.issueCode} | SAIL Newsletter`;
-    $("#issue-month").textContent = issue.monthLabel;
-    $("#issue-title").textContent = issue.title;
-    $("#issue-subtitle").textContent = issue.subtitle;
-    $("#issue-code").textContent = issue.issueCode;
+  function renderArchiveSummary() {
+    $("#latest-month").textContent = issue.monthLabel;
+    $("#issue-total").textContent = `${issueKeys.length} Issue${issueKeys.length > 1 ? "s" : ""}`;
 
-    const stats = $("#stats");
-    stats.innerHTML = "";
-    issue.stats.forEach((item) => {
+    const stats = getArchiveStats();
+    const items = [
+      { value: stats.papers, label: "论文发表" },
+      { value: stats.team, label: "团队动态" },
+      { value: stats.deadlines, label: "会议截稿" },
+      { value: stats.resources, label: "资源推荐" }
+    ];
+
+    const root = $("#stats");
+    root.innerHTML = "";
+    items.forEach((item) => {
       const stat = make("div", "stat-item");
-      stat.append(make("strong", null, item.value));
+      stat.append(make("strong", null, String(item.value)));
       stat.append(make("span", null, item.label));
-      stats.appendChild(stat);
+      root.appendChild(stat);
     });
+  }
+
+  function renderCurrentIssueTitle() {
+    document.title = `${issue.issueCode} | SAIL Newsletter`;
+    $("#current-issue-title").textContent = issue.cnMonth || issue.monthLabel;
+    $("#current-issue-subtitle").textContent = `Issue ${issue.issueCode} · ${issue.subtitle}`;
   }
 
   function renderHighlights() {
@@ -231,9 +256,9 @@
     footer.appendChild(inner);
   }
 
-  function renderAll() {
+  function renderIssue() {
     renderIssueNav();
-    renderBasics();
+    renderCurrentIssueTitle();
     renderHighlights();
     renderPapers();
     renderTeamUpdates();
@@ -244,5 +269,6 @@
     renderFooter();
   }
 
-  renderAll();
+  renderArchiveSummary();
+  renderIssue();
 })();
