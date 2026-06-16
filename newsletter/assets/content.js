@@ -1,7 +1,7 @@
-// 每月更新入口：
+// 新增一期：
 // 1. 复制 issues["2026-06"] 这一整块，改成新月份编号，例如 "2026-09"。
-// 2. 替换 monthLabel、cnMonth、sourcePdf、pdfPages 和各版块内容。
-// 3. 把 defaultIssue 改成新月份编号，首页会自动显示最新一期。
+// 2. 替换 monthLabel、cnMonth、stats、highlights 和各板块内容。
+// 3. 把 defaultIssue 改成最新月份编号；左侧目录会自动显示所有期数。
 window.NEWSLETTER_CONTENT = {
   defaultIssue: "2026-06",
   issues: {

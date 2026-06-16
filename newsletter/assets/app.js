@@ -1,6 +1,9 @@
 (function () {
   const data = window.NEWSLETTER_CONTENT;
-  const issue = data.issues[data.defaultIssue];
+  const issueKeys = Object.keys(data.issues).sort().reverse();
+  const initialKey = new URLSearchParams(window.location.search).get("issue") || data.defaultIssue || issueKeys[0];
+  let activeIssueKey = data.issues[initialKey] ? initialKey : issueKeys[0];
+  let issue = data.issues[activeIssueKey];
   let activePerson = "all";
 
   const $ = (selector) => document.querySelector(selector);
@@ -19,13 +22,41 @@
     });
   }
 
+  function renderIssueNav() {
+    const root = $("#issue-nav");
+    root.innerHTML = "";
+    issueKeys.forEach((key) => {
+      const item = data.issues[key];
+      const button = make("button", "issue-button");
+      button.type = "button";
+      button.dataset.issue = key;
+      button.setAttribute("aria-current", key === activeIssueKey ? "page" : "false");
+      button.append(make("strong", null, item.issueCode));
+      button.append(make("span", null, item.cnMonth || item.monthLabel));
+      button.addEventListener("click", () => selectIssue(key));
+      root.appendChild(button);
+    });
+  }
+
+  function selectIssue(key) {
+    if (!data.issues[key]) return;
+    activeIssueKey = key;
+    issue = data.issues[key];
+    activePerson = "all";
+    const url = new URL(window.location.href);
+    url.searchParams.set("issue", key);
+    url.hash = "";
+    window.history.replaceState({}, "", url);
+    renderAll();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   function renderBasics() {
     document.title = `${issue.issueCode} | SAIL Newsletter`;
     $("#issue-month").textContent = issue.monthLabel;
     $("#issue-title").textContent = issue.title;
     $("#issue-subtitle").textContent = issue.subtitle;
     $("#issue-code").textContent = issue.issueCode;
-    $("#source-pdf").href = issue.sourcePdf;
 
     const stats = $("#stats");
     stats.innerHTML = "";
@@ -57,7 +88,6 @@
 
     papers.forEach((paper) => {
       const article = make("article", "paper-card");
-
       const media = make("div", "paper-media");
       const img = make("img");
       img.src = paper.image;
@@ -70,7 +100,6 @@
       meta.append(make("span", null, paper.date));
       meta.append(make("span", null, paper.venue));
       body.appendChild(meta);
-
       body.append(make("h3", null, paper.title));
       body.append(make("p", "paper-people", paper.people));
       body.append(make("p", "paper-badge", paper.badge));
@@ -137,9 +166,7 @@
 
     issue.interview.questions.forEach((item, index) => {
       const article = make("article", "qa-card");
-      const question = make("h3", null, `${index + 1}. ${item.question}`);
-      article.appendChild(question);
-
+      article.append(make("h3", null, `${index + 1}. ${item.question}`));
       people
         .filter((person) => activePerson === "all" || activePerson === person.id)
         .forEach((person) => {
@@ -148,7 +175,6 @@
           answer.append(make("p", null, item.answers[person.id]));
           article.appendChild(answer);
         });
-
       root.appendChild(article);
     });
   }
@@ -158,11 +184,11 @@
     root.innerHTML = "";
     issue.events.deadlines.forEach((deadline) => {
       const item = make("article", "deadline-item");
-      const date = make("time", null, deadline.date);
+      item.append(make("time", null, deadline.date));
       const body = make("div");
       body.append(make("h3", null, deadline.name));
       body.append(make("p", null, deadline.fullName));
-      item.append(date, body);
+      item.appendChild(body);
       root.appendChild(item);
     });
   }
@@ -187,21 +213,6 @@
     root.appendChild(article);
   }
 
-  function renderPdfPreview() {
-    const root = $("#pdf-preview");
-    root.innerHTML = "";
-    issue.pdfPages.forEach((page, index) => {
-      const figure = make("figure", "pdf-page");
-      const img = make("img");
-      img.src = page;
-      img.alt = `${issue.issueCode} PDF 第 ${index + 1} 页`;
-      img.loading = "lazy";
-      const caption = make("figcaption", null, `Page ${index + 1}`);
-      figure.append(img, caption);
-      root.appendChild(figure);
-    });
-  }
-
   function renderFooter() {
     const contact = issue.contact;
     const footer = $(".site-footer");
@@ -220,7 +231,8 @@
     footer.appendChild(inner);
   }
 
-  function init() {
+  function renderAll() {
+    renderIssueNav();
     renderBasics();
     renderHighlights();
     renderPapers();
@@ -229,9 +241,8 @@
     renderInterview();
     renderDeadlines();
     renderResource();
-    renderPdfPreview();
     renderFooter();
   }
 
-  init();
+  renderAll();
 })();
