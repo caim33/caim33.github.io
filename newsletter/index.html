@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SAIL Newsletter</title>
+    <meta name="description" content="SAIL Newsletter web edition">
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="SAIL Newsletter 首页">
+          <span class="brand-mark">S</span>
+          <span>
+            <strong>SAIL Newsletter</strong>
+            <small>Learning and Vision Atelier</small>
+          </span>
+        </a>
+        <nav class="top-nav" aria-label="主要板块">
+          <a href="#spotlight">Spotlight</a>
+          <a href="#interview">Interview</a>
+          <a href="#events">Events</a>
+          <a href="#resources">Resources</a>
+          <a href="#archive">PDF</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="top" class="hero-section" aria-labelledby="issue-title">
+        <div class="hero-copy">
+          <p class="eyebrow" id="issue-month"></p>
+          <h1 id="issue-title"></h1>
+          <p class="hero-subtitle" id="issue-subtitle"></p>
+          <div class="hero-actions">
+            <a class="button button-primary" id="source-pdf" href="#">查看原 PDF</a>
+            <a class="button button-ghost" href="#update-guide">每月更新说明</a>
+          </div>
+        </div>
+        <aside class="issue-panel" aria-label="本期概览">
+          <div class="issue-panel-top">
+            <span>Issue</span>
+            <strong id="issue-code"></strong>
+          </div>
+          <div class="stat-grid" id="stats"></div>
+        </aside>
+      </section>
+
+      <section class="section highlights" aria-labelledby="highlights-title">
+        <div class="section-heading">
+          <p class="eyebrow">At a glance</p>
+          <h2 id="highlights-title">本期速览</h2>
+        </div>
+        <div class="highlight-grid" id="highlights"></div>
+      </section>
+
+      <section id="spotlight" class="section" aria-labelledby="spotlight-title">
+        <div class="section-heading">
+          <p class="eyebrow">Spotlight</p>
+          <h2 id="spotlight-title">论文发表与团队动态</h2>
+        </div>
+        <div class="subsection-title">
+          <h3>论文发表</h3>
+          <span id="paper-count"></span>
+        </div>
+        <div class="paper-list" id="papers"></div>
+
+        <div class="subsection-title team-heading">
+          <h3>团队动态</h3>
+          <span id="team-count"></span>
+        </div>
+        <div class="timeline" id="team-updates"></div>
+      </section>
+
+      <section id="interview" class="section interview-section" aria-labelledby="interview-title">
+        <div class="section-heading">
+          <p class="eyebrow">Interview</p>
+          <h2 id="interview-title">参会感受</h2>
+          <p id="interview-intro" class="section-intro"></p>
+        </div>
+        <div class="person-filter" id="person-filter" aria-label="筛选受访者"></div>
+        <div class="qa-list" id="interview-list"></div>
+      </section>
+
+      <section id="events" class="section split-section" aria-labelledby="events-title">
+        <div>
+          <div class="section-heading">
+            <p class="eyebrow">Events</p>
+            <h2 id="events-title">会议截稿</h2>
+          </div>
+          <div class="deadline-list" id="deadlines"></div>
+        </div>
+        <div id="resources" class="resource-column" aria-labelledby="resources-title">
+          <div class="section-heading">
+            <p class="eyebrow">Resources</p>
+            <h2 id="resources-title">资源推荐</h2>
+          </div>
+          <div id="resource-card"></div>
+        </div>
+      </section>
+
+      <section id="archive" class="section pdf-section" aria-labelledby="archive-title">
+        <div class="section-heading">
+          <p class="eyebrow">Original PDF</p>
+          <h2 id="archive-title">原刊预览</h2>
+          <p class="section-intro">保留 PDF 原版页面，方便核对排版和内容。</p>
+        </div>
+        <div class="pdf-preview" id="pdf-preview"></div>
+      </section>
+
+      <section id="update-guide" class="section update-guide" aria-labelledby="update-title">
+        <div class="section-heading">
+          <p class="eyebrow">Maintenance</p>
+          <h2 id="update-title">每月更新方式</h2>
+        </div>
+        <div class="guide-grid">
+          <article>
+            <span>1</span>
+            <h3>复制一个 issue 数据块</h3>
+            <p>在 <code>assets/content.js</code> 里复制 <code>2026-06</code>，改成新月份编号。</p>
+          </article>
+          <article>
+            <span>2</span>
+            <h3>替换版块内容</h3>
+            <p>按 Spotlight、Interview、Events、Resources 更新文字、日期、图片和 PDF 路径。</p>
+          </article>
+          <article>
+            <span>3</span>
+            <h3>切换默认月份</h3>
+            <p>把 <code>defaultIssue</code> 改成新月份，首页就会自动展示最新一期。</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contact"></footer>
+
+    <script src="assets/content.js"></script>
+    <script src="assets/app.js"></script>
+  </body>
+</html>
