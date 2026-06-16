@@ -132,27 +132,78 @@ a {
 .archive-shell {
   width: min(1440px, 100%);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
+  grid-template-columns: 280px minmax(0, 1fr);
   margin: 0 auto;
+  transition: grid-template-columns 180ms ease;
+}
+
+.archive-shell.rail-collapsed {
+  grid-template-columns: 72px minmax(0, 1fr);
 }
 
 .content-area {
   min-width: 0;
-  grid-column: 1;
+  grid-column: 2;
   grid-row: 1;
 }
 
 .issue-rail {
   position: sticky;
   top: 70px;
-  grid-column: 2;
+  grid-column: 1;
   grid-row: 1;
   align-self: start;
   height: calc(100vh - 70px);
   padding: 1.2rem;
   background: rgba(255, 255, 255, 0.9);
-  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
   overflow-y: auto;
+}
+
+.issue-rail-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.rail-toggle {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  display: grid;
+  place-items: center;
+  color: var(--teal-dark);
+  background: #f8faf9;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.rail-toggle:hover,
+.rail-toggle:focus-visible {
+  color: #fff;
+  background: var(--teal-dark);
+  outline: none;
+}
+
+.rail-collapsed .issue-rail {
+  padding: 1rem 0.7rem;
+}
+
+.rail-collapsed .directory-heading {
+  display: none;
+}
+
+.rail-collapsed .issue-rail-top {
+  justify-content: center;
+}
+
+.rail-collapsed .issue-list {
+  margin-top: 1rem;
 }
 
 .hero-section {
@@ -265,6 +316,25 @@ h3 {
 .issue-button[aria-current="page"] strong,
 .issue-button[aria-current="page"] span {
   color: #fff;
+}
+
+.rail-collapsed .issue-button {
+  min-height: 52px;
+  padding: 0.5rem 0.25rem;
+  text-align: center;
+}
+
+.rail-collapsed .issue-button strong {
+  font-size: 0;
+}
+
+.rail-collapsed .issue-button strong::after {
+  content: attr(data-short);
+  font-size: 1rem;
+}
+
+.rail-collapsed .issue-button span {
+  display: none;
 }
 
 .archive-panel,
@@ -651,13 +721,19 @@ h3 {
 }
 
 @media (max-width: 1180px) {
-  .archive-shell {
+  .archive-shell,
+  .archive-shell.rail-collapsed {
     grid-template-columns: 1fr;
   }
 
-  .content-area,
   .issue-rail {
     grid-column: 1;
+    grid-row: 1;
+  }
+
+  .content-area {
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .issue-rail {
@@ -665,8 +741,21 @@ h3 {
     top: 70px;
     z-index: 9;
     height: auto;
-    border-left: 0;
+    padding: 1rem 1.2rem;
+    border-right: 0;
     border-bottom: 1px solid var(--line);
+  }
+
+  .rail-collapsed .issue-rail {
+    padding: 1rem 1.2rem;
+  }
+
+  .rail-collapsed .directory-heading {
+    display: block;
+  }
+
+  .rail-collapsed .issue-rail-top {
+    justify-content: space-between;
   }
 
   .issue-list {
@@ -677,6 +766,24 @@ h3 {
 
   .issue-button {
     flex: 0 0 180px;
+  }
+
+  .rail-collapsed .issue-button {
+    min-height: 78px;
+    padding: 0.85rem 1rem;
+    text-align: left;
+  }
+
+  .rail-collapsed .issue-button strong {
+    font-size: 1.25rem;
+  }
+
+  .rail-collapsed .issue-button strong::after {
+    content: none;
+  }
+
+  .rail-collapsed .issue-button span {
+    display: block;
   }
 }
 

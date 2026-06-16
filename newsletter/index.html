@@ -29,11 +29,16 @@
       </div>
     </header>
 
-    <div class="archive-shell">
+    <div class="archive-shell" id="archive-shell">
       <aside id="issues" class="issue-rail" aria-labelledby="issue-directory-title">
-        <div class="directory-heading">
-          <p class="eyebrow">Issues</p>
-          <h2 id="issue-directory-title">期数目录</h2>
+        <div class="issue-rail-top">
+          <div class="directory-heading">
+            <p class="eyebrow">Issues</p>
+            <h2 id="issue-directory-title">期数目录</h2>
+          </div>
+          <button class="rail-toggle" id="issue-toggle" type="button" aria-label="收起期数目录" aria-expanded="true">
+            <span aria-hidden="true">‹</span>
+          </button>
         </div>
         <div class="issue-list" id="issue-nav" aria-label="按日期选择期刊"></div>
       </aside>

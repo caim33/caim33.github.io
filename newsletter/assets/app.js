@@ -5,6 +5,7 @@
   let activeIssueKey = data.issues[initialKey] ? initialKey : issueKeys[0];
   let issue = data.issues[activeIssueKey];
   let activePerson = "all";
+  let railCollapsed = window.localStorage.getItem("newsletterRailCollapsed") === "true";
 
   const $ = (selector) => document.querySelector(selector);
 
@@ -44,6 +45,8 @@
       const button = make("button", "issue-button");
       button.type = "button";
       button.dataset.issue = key;
+      button.dataset.short = item.issueCode.split(".").pop();
+      button.title = `${item.issueCode} ${item.cnMonth || item.monthLabel}`;
       button.setAttribute("aria-current", key === activeIssueKey ? "page" : "false");
       button.append(make("strong", null, item.issueCode));
       button.append(make("span", null, item.cnMonth || item.monthLabel));
@@ -63,6 +66,23 @@
     window.history.replaceState({}, "", url);
     renderIssue();
     window.scrollTo({ top: document.querySelector(".current-issue-heading").offsetTop - 80, behavior: "smooth" });
+  }
+
+  function renderRailToggle() {
+    const shell = $("#archive-shell");
+    const button = $("#issue-toggle");
+    shell.classList.toggle("rail-collapsed", railCollapsed);
+    button.setAttribute("aria-expanded", String(!railCollapsed));
+    button.setAttribute("aria-label", railCollapsed ? "展开期数目录" : "收起期数目录");
+    button.querySelector("span").textContent = railCollapsed ? "›" : "‹";
+  }
+
+  function bindRailToggle() {
+    $("#issue-toggle").addEventListener("click", () => {
+      railCollapsed = !railCollapsed;
+      window.localStorage.setItem("newsletterRailCollapsed", String(railCollapsed));
+      renderRailToggle();
+    });
   }
 
   function renderArchiveSummary() {
@@ -258,6 +278,7 @@
 
   function renderIssue() {
     renderIssueNav();
+    renderRailToggle();
     renderCurrentIssueTitle();
     renderHighlights();
     renderPapers();
@@ -270,5 +291,6 @@
   }
 
   renderArchiveSummary();
+  bindRailToggle();
   renderIssue();
 })();
