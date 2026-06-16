@@ -86,7 +86,6 @@
   }
 
   function renderArchiveSummary() {
-    $("#latest-month").textContent = issue.monthLabel;
     $("#issue-total").textContent = `${issueKeys.length} Issue${issueKeys.length > 1 ? "s" : ""}`;
 
     const stats = getArchiveStats();
